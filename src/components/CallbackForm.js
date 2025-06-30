@@ -1,37 +1,49 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from '../api/api';
 import '../styles/CallbackForm.css';
 
-const BASE_URL = process.env.REACT_APP_BACKEND_URL;
-
 function CallbackForm() {
-  const [form, setForm] = useState({ name: '', phone: '', message: '' });
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleChange = e => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios.post(`${BASE_URL}/api/callbacks`, form)
-      .then(() => setSubmitted(true))
-      .catch(err => console.error('Error submitting callback', err));
+    if (!name || !phone) {
+      setError('Please fill in all fields');
+      return;
+    }
+    try {
+      await api.post('/api/callback', { name, phone });
+      setSubmitted(true);
+      setError('');
+    } catch (err) {
+      setError('Error submitting request');
+    }
   };
 
   return (
     <div className="callback-form">
       <h2>Request a Callback</h2>
       {submitted ? (
-        <p>Thank you! We will contact you soon.</p>
+        <p>Thank you! We'll call you back shortly.</p>
       ) : (
         <form onSubmit={handleSubmit}>
-          <input name="name" placeholder="Name" value={form.name} onChange={handleChange} required />
-          <input name="phone" placeholder="Phone" value={form.phone} onChange={handleChange} required />
-          <textarea name="message" placeholder="Message" value={form.message} onChange={handleChange} />
+          <input
+            value={name}
+            onChange={e => setName(e.target.value)}
+            placeholder="Your Name"
+          />
+          <input
+            value={phone}
+            onChange={e => setPhone(e.target.value)}
+            placeholder="Phone Number"
+          />
           <button type="submit">Submit</button>
         </form>
       )}
+      {error && <p className="error">{error}</p>}
     </div>
   );
 }

@@ -1,28 +1,38 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../api/api';
 import '../styles/ReviewsSlider.css';
-
-const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
 function ReviewsSlider() {
   const [reviews, setReviews] = useState([]);
+  const [current, setCurrent] = useState(0);
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/api/reviews`)
+    api.get('/api/reviews')
       .then(res => setReviews(res.data))
       .catch(err => console.error('Error fetching reviews', err));
   }, []);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent(prev => (prev + 1) % reviews.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [reviews]);
+
+  if (!reviews.length) return <div className="reviews-slider">Loading reviews...</div>;
+
   return (
     <div className="reviews-slider">
-      <h2>Customer Reviews</h2>
-      <div className="reviews-container">
-        {reviews.map((review, idx) => (
-          <div key={idx} className="review-tile">
-            <p>"{review.comment}" - {review.name}</p>
-          </div>
-        ))}
-      </div>
+      {reviews.map((review, index) => (
+        <div
+          key={index}
+          className={`review-tile ${index === current ? 'active' : ''}`}
+          style={{ display: index === current ? 'block' : 'none' }}
+        >
+          <p>"{review.text}"</p>
+          <h4>- {review.author}</h4>
+        </div>
+      ))}
     </div>
   );
 }

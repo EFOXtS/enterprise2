@@ -1,22 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../api/api';
 import '../styles/ImageSlider.css';
-
-const BASE_URL = process.env.REACT_APP_BACKEND_URL;
 
 function ImageSlider() {
   const [images, setImages] = useState([]);
+  const [current, setCurrent] = useState(0);
 
   useEffect(() => {
-    axios.get(`${BASE_URL}/api/images`)
+    api.get('/api/images')
       .then(res => setImages(res.data))
       .catch(err => console.error('Error fetching images', err));
   }, []);
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrent(prev => (prev + 1) % images.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [images]);
+
+  if (!images.length) return <div className="image-slider">Loading images...</div>;
+
   return (
     <div className="image-slider">
-      {images.map((img, idx) => (
-        <img key={idx} src={img.url} alt={img.alt || `Slide ${idx + 1}`} />
+      {images.map((img, index) => (
+        <img
+          key={index}
+          src={img.url}
+          alt={`Slide ${index}`}
+          className={`slider-image ${index === current ? 'active' : ''}`}
+          style={{
+            display: index === current ? 'block' : 'none',
+            width: '100%',
+            height: '300px',
+            objectFit: 'cover',
+            borderRadius: '8px'
+          }}
+        />
       ))}
     </div>
   );
