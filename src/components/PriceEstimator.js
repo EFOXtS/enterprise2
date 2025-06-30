@@ -1,39 +1,44 @@
-import React, { useState } from 'react';
-import '../styles/App.css';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import '../styles/PriceEstimator.css';
 
-const PriceEstimator = () => {
-  const [service, setService] = useState('Residential');
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
+function PriceEstimator() {
+  const [serviceType, setServiceType] = useState('Residential');
   const [size, setSize] = useState('1BHK');
-  const [price, setPrice] = useState(0);
+  const [priceData, setPriceData] = useState({});
+  const [estimatedPrice, setEstimatedPrice] = useState(null);
 
-  const priceMap = {
-    Residential: { '1BHK': 5000, '2BHK': 8000 },
-    Office: { Small: 10000, Large: 20000 },
-    Goods: { Small: 3000, Large: 6000 }
-  };
+  useEffect(() => {
+    axios.get(`${BASE_URL}/api/prices`)
+      .then(res => setPriceData(res.data))
+      .catch(err => console.error('Error fetching prices', err));
+  }, []);
 
   const calculatePrice = () => {
-    setPrice(priceMap[service][size] || 0);
+    if (priceData[serviceType] && priceData[serviceType][size]) {
+      setEstimatedPrice(priceData[serviceType][size]);
+    } else {
+      setEstimatedPrice('Price not available');
+    }
   };
 
   return (
-    <section className="estimator">
+    <div className="price-estimator">
       <h2>Instant Price Estimator</h2>
-      <select value={service} onChange={e => setService(e.target.value)}>
-        <option>Residential</option>
-        <option>Office</option>
-        <option>Goods</option>
+      <select value={serviceType} onChange={e => setServiceType(e.target.value)}>
+        {Object.keys(priceData).map(type => <option key={type}>{type}</option>)}
       </select>
       <select value={size} onChange={e => setSize(e.target.value)}>
-        {Object.keys(priceMap[service]).map(s => (
-          <option key={s}>{s}</option>
+        {priceData[serviceType] && Object.keys(priceData[serviceType]).map(option => (
+          <option key={option}>{option}</option>
         ))}
       </select>
       <button onClick={calculatePrice}>Calculate Price</button>
-      {price > 0 && <p>Estimated Price: ₹{price}</p>}
-    </section>
+      {estimatedPrice && <p>Estimated Price: ₹{estimatedPrice}</p>}
+    </div>
   );
-};
+}
 
 export default PriceEstimator;
-

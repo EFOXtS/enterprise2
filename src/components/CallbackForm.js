@@ -1,26 +1,39 @@
 import React, { useState } from 'react';
-import '../styles/App.css';
+import axios from 'axios';
+import '../styles/CallbackForm.css';
 
-const CallbackForm = () => {
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
+function CallbackForm() {
   const [form, setForm] = useState({ name: '', phone: '', message: '' });
+  const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleChange = e => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = e => {
     e.preventDefault();
-    console.log('Callback request submitted:', form);
+    axios.post(`${BASE_URL}/api/callbacks`, form)
+      .then(() => setSubmitted(true))
+      .catch(err => console.error('Error submitting callback', err));
   };
 
   return (
-    <section className="callback-form">
+    <div className="callback-form">
       <h2>Request a Callback</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Name" onChange={e => setForm({...form, name: e.target.value})} />
-        <input type="tel" placeholder="Phone" onChange={e => setForm({...form, phone: e.target.value})} />
-        <textarea placeholder="Message" onChange={e => setForm({...form, message: e.target.value})}></textarea>
-        <button type="submit">Submit</button>
-      </form>
-    </section>
+      {submitted ? (
+        <p>Thank you! We will contact you soon.</p>
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <input name="name" placeholder="Name" value={form.name} onChange={handleChange} required />
+          <input name="phone" placeholder="Phone" value={form.phone} onChange={handleChange} required />
+          <textarea name="message" placeholder="Message" value={form.message} onChange={handleChange} />
+          <button type="submit">Submit</button>
+        </form>
+      )}
+    </div>
   );
-};
+}
 
 export default CallbackForm;
-

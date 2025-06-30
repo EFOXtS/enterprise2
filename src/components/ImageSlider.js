@@ -1,13 +1,25 @@
-import React from 'react';
-import '../styles/App.css';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import '../styles/ImageSlider.css';
 
-const ImageSlider = () => (
-  <div className="slider">
-    <img src="/placeholders/slider1.jpg" alt="Slide 1" />
-    <img src="/placeholders/slider2.jpg" alt="Slide 2" />
-    <img src="/placeholders/slider3.jpg" alt="Slide 3" />
-  </div>
-);
+const BASE_URL = process.env.REACT_APP_BACKEND_URL;
+
+function ImageSlider() {
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    axios.get(`${BASE_URL}/api/images`)
+      .then(res => setImages(res.data))
+      .catch(err => console.error('Error fetching images', err));
+  }, []);
+
+  return (
+    <div className="image-slider">
+      {images.map((img, idx) => (
+        <img key={idx} src={img.url} alt={img.alt || `Slide ${idx + 1}`} />
+      ))}
+    </div>
+  );
+}
 
 export default ImageSlider;
-

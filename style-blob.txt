@@ -1,0 +1,308 @@
+=== frontend/src/styles/NavBar.css ===
+.navbar {
+      display: flex;
+        justify-content: space-between;
+          align-items: center;
+            padding: 1rem 2rem;
+              background-color: #004d40;
+                color: white;
+}
+
+.navbar a {
+      color: white;
+        text-decoration: none;
+          padding: 0.5rem;
+            font-size: 1.1rem;
+}
+
+.navbar a:hover {
+      text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+      .navbar {
+            flex-direction: column;
+                align-items: flex-start;
+      }
+}
+
+
+=== frontend/src/styles/ImageSlider.css ===
+.image-slider {
+      display: flex;
+        overflow-x: auto;
+          gap: 10px;
+            padding: 1rem;
+}
+
+.image-slider img {
+      height: 200px;
+        width: 100%;
+          object-fit: cover;
+            border-radius: 8px;
+              box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease;
+}
+
+.image-slider img:hover {
+      transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+      .image-slider {
+            flex-direction: column;
+                align-items: center;
+      }
+}
+
+
+=== frontend/src/styles/BioSection.css ===
+.bio-section {
+      display: flex;
+        flex-direction: row;
+          align-items: center;
+            justify-content: space-between;
+              padding: 2rem;
+                background: #f9f9f9;
+}
+
+.bio-image {
+      max-width: 300px;
+        height: auto;
+          border-radius: 10px;
+}
+
+.bio-text {
+      flex: 1;
+        margin-left: 2rem;
+}
+
+@media (max-width: 768px) {
+      .bio-section {
+            flex-direction: column;
+                align-items: center;
+      }
+
+        .bio-text {
+                margin-left: 0;
+                    text-align: center;
+        }
+}
+
+
+=== frontend/src/styles/PriceEstimator.css ===
+.price-estimator {
+      padding: 2rem;
+        background-color: #f3f4f6;
+          display: flex;
+            flex-direction: column;
+              gap: 1rem;
+                align-items: center;
+}
+
+.price-estimator select,
+.price-estimator button {
+      padding: 0.8rem;
+        font-size: 1rem;
+          width: 100%;
+            max-width: 350px;
+              border-radius: 8px;
+                border: 1px solid #ddd;
+                  background-color: white;
+                    margin-top: 10px;
+}
+
+.price-estimator button {
+      background-color: #00796b;
+        color: white;
+          cursor: pointer;
+}
+
+.price-estimator button:hover {
+      background-color: #004d40;
+}
+
+@media (max-width: 768px) {
+      .price-estimator {
+            padding: 1rem;
+      }
+}
+
+
+=== frontend/src/styles/CallbackForm.css ===
+.callback-form {
+      padding: 2rem;
+        background-color: #e0f7fa;
+          display: flex;
+            flex-direction: column;
+              gap: 1rem;
+                align-items: center;
+}
+
+.callback-form input,
+.callback-form textarea {
+      padding: 0.8rem;
+        width: 100%;
+          max-width: 400px;
+            border-radius: 8px;
+              border: 1px solid #ddd;
+                font-size: 1rem;
+}
+
+.callback-form button {
+      padding: 0.8rem;
+        width: 100%;
+          max-width: 400px;
+            background-color: #00796b;
+              color: white;
+                border-radius: 8px;
+                  border: none;
+                    cursor: pointer;
+}
+
+.callback-form button:hover {
+      background-color: #004d40;
+}
+
+@media (max-width: 768px) {
+      .callback-form {
+            padding: 1rem;
+      }
+}
+
+
+=== frontend/src/styles/ReviewsSlider.css ===
+.reviews-slider {
+      background: #fafafa;
+        padding: 2rem;
+          display: flex;
+            flex-direction: column;
+              align-items: center;
+}
+
+.reviews-container {
+      display: flex;
+        flex-wrap: wrap;
+          justify-content: center;
+            gap: 1.5rem;
+}
+
+.review-tile {
+      background: #ffffff;
+        border-radius: 8px;
+          padding: 1.5rem;
+            max-width: 300px;
+              box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.review-tile p {
+      font-style: italic;
+        margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+      .reviews-container {
+            flex-direction: column;
+                align-items: center;
+      }
+}
+
+
+=== frontend/src/styles/App.css ===
+* {
+      margin: 0;
+        padding: 0;
+          box-sizing: border-box;
+}
+
+body, html {
+      font-family: Arial, sans-serif;
+        line-height: 1.5;
+          background-color: #ffffff;
+}
+
+main {
+      padding: 2rem;
+}
+
+.app-container {
+      display: flex;
+        flex-direction: column;
+          align-items: center;
+            gap: 2rem;
+}
+
+@media (max-width: 768px) {
+      .app-container {
+            padding: 1rem;
+      }
+}
+
+
+=== frontend/src/styles/index.css ===
+* {
+      box-sizing: border-box;
+}
+
+body {
+      font-family: Arial, sans-serif;
+        background-color: #ffffff;
+}
+
+.container {
+      display: flex;
+        flex-direction: column;
+          align-items: center;
+            margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+      .container {
+            padding: 1rem;
+      }
+}
+      }
+}
+}
+}
+}
+      }
+}
+}
+}
+}
+}
+      }
+}
+}
+}
+}
+}
+      }
+}
+}
+}
+}
+}
+      }
+}
+}
+}
+}
+}
+        }
+      }
+}
+}
+}
+}
+      }
+}
+}
+}
+}
+      }
+}
+}
+}
+}
