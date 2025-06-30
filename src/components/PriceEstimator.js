@@ -2,6 +2,19 @@ import React, { useEffect, useState } from 'react';
 import api from '../api/api';
 import '../styles/PriceEstimator.css';
 
+// Fallback prices (static) in case backend fails
+const fallbackPrices = {
+  Residential: {
+    "1BHK": 5000,
+    "2BHK": 7000,
+    "3BHK": 9000
+  },
+  Commercial: {
+    "Small Office": 8000,
+    "Large Office": 15000
+  }
+};
+
 function PriceEstimator() {
   const [serviceType, setServiceType] = useState('Residential');
   const [size, setSize] = useState('');
@@ -14,14 +27,20 @@ function PriceEstimator() {
       .then(res => {
         setPriceData(res.data);
         setLoading(false);
-        // Default selection
+
+        // Default selections
         const firstType = Object.keys(res.data)[0];
         setServiceType(firstType);
         setSize(Object.keys(res.data[firstType])[0]);
       })
       .catch(err => {
-        console.error('Error fetching prices', err);
+        console.error('Error fetching prices from backend, using fallback.', err);
+        setPriceData(fallbackPrices);
         setLoading(false);
+
+        const firstType = Object.keys(fallbackPrices)[0];
+        setServiceType(firstType);
+        setSize(Object.keys(fallbackPrices[firstType])[0]);
       });
   }, []);
 
