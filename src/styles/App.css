@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+.navbar {
+  background-color: #1ABC9C;
+  padding: 1rem;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.slider img {
+  width: 100%;
+  height: auto;
+}
+.bio, .estimator, .callback-form, .reviews-slider, .admin {
+  padding: 2rem;
+  margin: 1rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+button {
+  background-color: #1ABC9C;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  cursor: pointer;
+}
+
