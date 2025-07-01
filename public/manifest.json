@@ -1,21 +1,23 @@
 {
   "short_name": "Mamta",
-  "name": "Mamta Enterprises",
-  "start_url": ".",
+  "name": "Mamta Enterprises Logistics PWA",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#ffffff",
-  "description": "Mamta Enterprises - Local logistics and shifting company. Get instant price estimates, request callbacks, and more.",
+  "theme_color": "#0ca678",
+  "description": "Trusted local logistics and shifting company. Get instant estimates, request callbacks, and more.",
   "icons": [
     {
-      "src": "android-chrome-192x192.png",
+      "src": "/images/icon-192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "android-chrome-512x512.png",
+      "src": "/images/icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "prefer_related_applications": false
 }

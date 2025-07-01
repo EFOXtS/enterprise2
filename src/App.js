@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import NavBar from './components/NavBar';
+import Footer from './components/Footer';
 import ImageSlider from './components/ImageSlider';
 import BioSection from './components/BioSection';
 import PriceEstimator from './components/PriceEstimator';
@@ -26,6 +27,7 @@ function App() {
           } />
           <Route path="/admin" element={<AdminPage />} />
         </Routes>
+        <Footer />
       </div>
     </Router>
   );
