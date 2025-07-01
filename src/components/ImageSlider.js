@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import api from '../api/api';
 import '../styles/ImageSlider.css';
 
-// Fallback images (static)
+// Fallback static images (must be in /public/images/)
 const fallbackImages = [
   '/images/fallback1.jpg',
   '/images/fallback2.jpg',
@@ -31,21 +31,32 @@ function ImageSlider() {
       });
   }, []);
 
-  const nextSlide = () => setCurrent((current + 1) % images.length);
-  const prevSlide = () => setCurrent((current - 1 + images.length) % images.length);
+  // Autoplay next image every 5s
+  useEffect(() => {
+    if (images.length === 0) return;
+    const interval = setInterval(() => {
+      setCurrent(prev => (prev + 1) % images.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [images]);
 
   if (loading) return <div className="image-slider"><p>Loading images...</p></div>;
 
   return (
     <div className="image-slider">
-      <button onClick={prevSlide}>&#10094;</button>
-      <img
-        src={images[current]}
-        alt={`Slide ${current + 1}`}
-        onError={(e) => e.target.src = fallbackImages[0]}  // Fallback on per-image failure
-        className="slider-image"
-      />
-      <button onClick={nextSlide}>&#10095;</button>
+      <button onClick={() => setCurrent((current - 1 + images.length) % images.length)}>&#10094;</button>
+      <div className="slider-image-container">
+        <img
+          src={images[current]}
+          alt={`Slide ${current + 1}`}
+          loading="lazy"
+          onError={(e) => {
+            console.error('Image failed to load, using fallback');
+            e.target.src = fallbackImages[0];
+          }}
+        />
+      </div>
+      <button onClick={() => setCurrent((current + 1) % images.length)}>&#10095;</button>
     </div>
   );
 }

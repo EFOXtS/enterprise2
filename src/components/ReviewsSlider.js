@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import api from '../api/api';
 import '../styles/ReviewsSlider.css';
 
-// Fallback images
+// Fallback static images (must exist in /public/images/)
 const fallbackBackgrounds = [
   '/images/review-bg1.jpg',
   '/images/review-bg2.jpg',
   '/images/review-bg3.jpg'
 ];
 
-// Fallback reviews
 const fallbackReviews = [
   { author: "Rahul", text: "Excellent service!" },
   { author: "Priya", text: "Safe and reliable shifting." },
@@ -35,8 +34,9 @@ function ReviewsSlider() {
   }, []);
 
   useEffect(() => {
+    if (!backgrounds.length) return;
     const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % backgrounds.length);
+      setCurrent(prev => (prev + 1) % backgrounds.length);
     }, 5000);
     return () => clearInterval(interval);
   }, [backgrounds]);
@@ -46,7 +46,9 @@ function ReviewsSlider() {
   return (
     <div
       className="reviews-slider"
-      style={{ backgroundImage: `url(${backgrounds[current]})` }}
+      style={{
+        backgroundImage: `url(${backgrounds[current]})`
+      }}
     >
       <div className="reviews-container">
         {reviews.map((rev, idx) => (

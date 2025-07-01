@@ -1,0 +1,67 @@
+.admin {
+  padding: 2rem;
+  max-width: 900px;
+  margin: auto;
+  background: #f9f9f9;
+  border-radius: 10px;
+  font-family: Arial, sans-serif;
+}
+
+.admin h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.admin section {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.admin h3 {
+  margin-bottom: 1rem;
+  color: #444;
+}
+
+.admin input[type="file"],
+.admin input[type="number"] {
+  display: block;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  max-width: 300px;
+}
+
+.admin button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.admin button:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 600px) {
+  .admin {
+    padding: 1rem;
+  }
+
+  .admin section {
+    padding: 1rem;
+  }
+
+  .admin button {
+    width: 100%;
+  }
+}
